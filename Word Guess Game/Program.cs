@@ -12,7 +12,7 @@ namespace Word_Guess_Game
             string path = "../../../gamewords.txt";
 
             CreateFile(path);
-            //ReadFile(path);
+            ReadFile(path);
             //AppendToFile(path);
             //DeleteLineFromFile(path);
 
@@ -69,17 +69,17 @@ namespace Word_Guess_Game
         //}
 
         /// <summary>
-        /// Method to create 
+        /// Method to create starter words in txt file
         /// </summary>
         /// <param name="path"></param>
-        static void CreateFile(string path)
+        public static void CreateFile(string path)
         {
             try
             {
                 using (StreamWriter write = new StreamWriter(path))
                     try
                     {
-                        string[] starterWords = new string[] { "flamingo", "xanadu", "lavender", "platypus" };
+                        string[] starterWords = new string[] { "flamingo", "xanadu", "lavender", "platypus", "mayonaise" };
                         foreach(string index in starterWords)
                         {
                             write.WriteLine(index);
@@ -99,7 +99,32 @@ namespace Word_Guess_Game
                 Console.WriteLine("Bad times have found you.");
             }
         }
+
+        /// <summary>
+        /// Method to take words from txt file and show them on the console app
+        /// </summary>
+        /// <param name="path"></param>
+        static void ReadFile(string path)
+        {
+            try
+            {
+                string[] words = File.ReadAllLines(path);
+                Console.WriteLine("Available Game Words:");
+                foreach (string word in words)
+                {
+                    Console.WriteLine(word);
+                }
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error encountered");
+            }
+        }
+
+
+
+
+
     }
 }
-
-//write.Write("mayonaise");
