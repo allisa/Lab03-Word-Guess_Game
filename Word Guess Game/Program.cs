@@ -26,7 +26,7 @@ namespace Word_Guess_Game
             while (!exit)
             {
                 Console.WriteLine("Please select an option below:");
-                Console.WriteLine("0 - Home, 1 - Play, 2 - Word Bank, 3 - Add a Word, 4 - Delete a Word, 5 - Admin, 6 - Exit");
+                Console.WriteLine("0: Home, 1: Play, 2: Word Bank, 3: Add a Word, 4: Delete a Word, 5: Admin, 6: Exit");
                 int optionSelection = Convert.ToInt32(Console.ReadLine());
 
                 switch (optionSelection)
@@ -142,6 +142,7 @@ namespace Word_Guess_Game
 
         /// <summary>
         /// Method to remove word entered by user after prompt from user menu
+        /// Got help from Danul De Leon to correctly remove word and update file
         /// </summary>
         /// <param name="path"></param>
         /// <param name="wordToRemove"></param>
@@ -150,22 +151,25 @@ namespace Word_Guess_Game
             try
             {
                 string[] currentWords = ReadFile(path);
+                int indexOfWord = Array.IndexOf(currentWords, wordToRemove);
                 string[] newWords = new string[currentWords.Length - 1];
 
                 for (int i = 0; i < currentWords.Length; i++)
                 {
-                    if (wordToRemove != currentWords[i])
+                    if (i == indexOfWord)
+                    {
+                        continue;
+                    }
+                    else if (i < indexOfWord)
                     {
                         newWords[i] = currentWords[i];
                     }
-                }
-                using (StreamWriter words = File.AppendText(path))
-                {
-                    for (int i = 0; i < newWords.Length; i++)
+                    else
                     {
-                        words.WriteLine(newWords[i]);
+                        newWords[i - 1] = currentWords[i];
                     }
                 }
+                File.WriteAllLines(path, newWords);
                 Console.WriteLine($"The word you requested to remove, {wordToRemove}, had been deleted.");
             }
             catch (Exception)
