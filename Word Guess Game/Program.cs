@@ -15,8 +15,7 @@ namespace Word_Guess_Game
             GameMenu(path);
 
         }
-
-
+        
         /// <summary>
         /// Method for game menu, do behavior based on used input
         /// </summary>
@@ -142,7 +141,7 @@ namespace Word_Guess_Game
 
         /// <summary>
         /// Method to remove word entered by user after prompt from user menu
-        /// Got help from Danul De Leon to correctly remove word and update file
+        /// Help received from Danul De Leon to correctly remove word and update file
         /// </summary>
         /// <param name="path"></param>
         /// <param name="wordToRemove"></param>
