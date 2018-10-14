@@ -99,21 +99,22 @@ namespace Word_Guess_Game
         /// Method to take words from txt file and show them on the console app
         /// </summary>
         /// <param name="path"></param>
-        public static void ReadFile(string path)
+        public static string[] ReadFile(string path)
         {
             try
             {
                 string[] words = File.ReadAllLines(path);
                 Console.WriteLine("Available Game Words:");
-                foreach (string word in words)
+                for(int i = 0; i < words.Length; i++)
                 {
-                    Console.WriteLine(word);
+                    Console.WriteLine(words[i]);
                 }
+                return words;
 
             }
             catch (Exception)
             {
-                Console.WriteLine("Error encountered");
+                throw;
             }
         }
 
@@ -150,36 +151,26 @@ namespace Word_Guess_Game
             {
                 string[] currentWords = ReadFile(path);
                 string[] newWords = new string[currentWords.Length - 1];
+
                 for (int i = 0; i < currentWords.Length; i++)
                 {
                     if (wordToRemove != currentWords[i])
                     {
                         newWords[i] = currentWords[i];
                     }
-                    //else
-                    //{
-                    //    Console.WriteLine($"The word you entered, {wordToRemove}, was not found");
-                    //}
                 }
-                try
+                using (StreamWriter words = File.AppendText(path))
                 {
-                    using (StreamWriter words = File.AppendText(path))
+                    for (int i = 0; i < newWords.Length; i++)
                     {
-                        for(int i = 0; i < newWords.Length; i++)
-                        {
-                            words.WriteLine(newWords);
-                        }
+                        words.WriteLine(newWords[i]);
                     }
-                }
-                catch (Exception)
-                {
-                    throw;
                 }
                 Console.WriteLine($"The word you requested to remove, {wordToRemove}, had been deleted.");
             }
             catch (Exception)
             {
-                Console.WriteLine("Error");
+                Console.WriteLine("Error has occured");
             }
         }
     }
