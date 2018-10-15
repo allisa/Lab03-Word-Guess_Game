@@ -165,6 +165,10 @@ namespace Word_Guess_Game
                         newWords[i - 1] = currentWords[i];
                     }
                 }
+
+                //this isn't working how I want it to, the file runs and shows the word that was
+                //removed but then if you view the word bank, the removed word is gone
+                //come back to this
                 File.WriteAllLines(path, newWords);
                 Console.WriteLine($"The word you requested to remove, {wordToRemove}, had been deleted.");
             }
@@ -188,9 +192,14 @@ namespace Word_Guess_Game
             return randomWord;
         }
 
+        //public static void Play(string path, int randomNum)
+        //{
+        //    string[] wordArray = ReadFile(path);
+        //    char[] charLetterArr = wordArray[randomNum].ToCharArray();
 
-        public static void Play(string path, int randomWord)
-        {
+
+        //}
+
            //stopping because I'm confused and need to do other life things
            //still need to figure out:
            //make random word show up as _
@@ -199,10 +208,6 @@ namespace Word_Guess_Game
            //change _ to letter if match
            //show guessed letters
            //show score?
-
-        }
-
-
-
     }
 }
+
